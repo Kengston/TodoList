@@ -8,5 +8,8 @@
             "email": "danildc@mail.ru"
         }
     ],
-    "require": {}
+    "require": {
+        "slim/slim": "^4.0",
+        "illuminate/database": "^10.37"
+    }
 }
