@@ -1,0 +1,12 @@
+{
+    "name": "danillysikov/todolist",
+    "description": "TODO list web application",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Kengston",
+            "email": "danildc@mail.ru"
+        }
+    ],
+    "require": {}
+}
