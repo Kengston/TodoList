@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-require __DIR__ . '/../../vendor/autoload.php';
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Capsule\Manager as Capsule;
