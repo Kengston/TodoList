@@ -12,6 +12,7 @@
         /* Стили для улучшения внешнего вида */
 
 
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
