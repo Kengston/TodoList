@@ -20,6 +20,8 @@
             width: 80%;
             margin: 20px auto;
         }
+
+
         h1 {
             text-align: center;
             color: #333;
