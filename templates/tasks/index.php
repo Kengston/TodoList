@@ -26,6 +26,8 @@
             text-align: center;
             color: #333;
         }
+
+
         .task {
             display: flex;
             justify-content: space-between;
