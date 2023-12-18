@@ -10,12 +10,16 @@
     <title>TODO List</title>
     <style>
         /* Стили для улучшения внешнего вида */
+
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4; /* Цвет фона */
         }
+
+
         .container {
             width: 80%;
             margin: 20px auto;
