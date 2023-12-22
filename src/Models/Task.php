@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
+
 class Task extends Model {
     protected $table = 'todos'; // Название таблицы в базе данных
     protected $fillable = ['task_name', 'description', 'status']; // Поля, доступные для заполнения
@@ -16,7 +17,4 @@ class Task extends Model {
         $capsule->bootEloquent();
     }
 
-    public static function getAllTasks() {
-        return self::all();
-    }
 }

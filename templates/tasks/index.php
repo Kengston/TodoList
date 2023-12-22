@@ -8,31 +8,24 @@
 <head>
     <meta charset="UTF-8">
     <title>TODO List</title>
+    <script src="/JS/taskFunctions.js"></script>
+    <script src="/JS/uiFunctions.js"></script>
     <style>
         /* Стили для улучшения внешнего вида */
-
-
-
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4; /* Цвет фона */
         }
-
-
         .container {
             width: 80%;
             margin: 20px auto;
         }
-
-
         h1 {
             text-align: center;
             color: #333;
         }
-
-
         .task {
             display: flex;
             justify-content: space-between;
@@ -69,6 +62,26 @@
         .edit-button:hover {
             color: red; /* Изменение цвета при наведении */
         }
+        .add-task-form {
+            display: none;
+            margin-bottom: 20px;
+            clear: both; /* Добавленный стиль для корректного отображения формы после кнопки */
+            overflow: hidden; /* Добавленный стиль для корректного отображения формы после кнопки */
+        }
+        .add-task-form input,
+        .add-task-form textarea,
+        .add-button {
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .add-task-form .add-button {
+            width: auto;
+        }
         .add-button {
             background-color: #4caf50;
             color: #fff;
@@ -79,6 +92,8 @@
             cursor: pointer;
             margin-bottom: 20px;
             float: right;
+            display: block; /* Добавленный стиль для корректного выравнивания кнопки */
+            clear: both; /* Добавленный стиль для корректного выравнивания кнопки */
         }
         .add-button:hover {
             background-color: #45a049;
@@ -86,8 +101,14 @@
     </style>
 </head>
 <body>
+
 <div class="container">
     <h1>TODO List</h1>
+    <div class="add-task-form" id="addTaskForm" style="display: none;">
+        <input type="text" id="taskName" placeholder="Task Name">
+        <textarea id="taskDescription" placeholder="Task Description"></textarea>
+        <button class="add-button" onclick="saveTask()">Save Task</button>
+    </div>
     <ul id="task-list">
         <?php foreach ($tasks as $task): ?>
             <li class="task" id="task-<?= $task->id ?>">
@@ -108,29 +129,8 @@
             </li>
         <?php endforeach; ?>
     </ul>
-    <button class="add-button" onclick="addTask()">Add Task</button>
+    <button class="add-button" onclick="toggleAddTaskForm()">Add Task</button>
 </div>
 
-<!-- JavaScript для обработки действий добавления, удаления и редактирования задач -->
-<script>
-    function addTask() {
-        // Здесь можно добавить логику добавления новой задачи
-        console.log('Добавить новую задачу');
-    }
-
-    function deleteTask(taskId) {
-        const taskElement = document.getElementById('task-' + taskId);
-        taskElement.style.transform = 'translateX(-200%)'; // Анимация удаления
-        setTimeout(() => {
-            taskElement.remove(); // Удаление элемента после анимации
-            // Здесь можно добавить логику удаления задачи с taskId из базы данных
-        }, 300); // Время анимации в миллисекундах
-    }
-
-    function editTask(taskId) {
-        // Здесь можно добавить логику для редактирования задачи с taskId
-        console.log('Редактировать задачу с ID:', taskId);
-    }
-</script>
 </body>
 </html>
