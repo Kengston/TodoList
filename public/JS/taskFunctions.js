@@ -1,5 +1,4 @@
 async function saveTask() {
-    console.log("savetask function called");
     const taskName = document.getElementById('taskName').value;
     const taskDescription = document.getElementById('taskDescription').value;
 
@@ -7,8 +6,6 @@ async function saveTask() {
         task_name: taskName,
         description: taskDescription
     };
-
-    console.log(body); // Debug: log sent body
 
     const response = await fetch('/tasks', {
         method: 'POST',
@@ -19,9 +16,9 @@ async function saveTask() {
     });
 
     if (response.ok) {
-        console.log(`The task: ${taskName} has been created successfully`);
+        window.location.reload(); // This will reload the page
     } else {
-        console.error(`An error occurred: ${response.statusText}`);
+        console.error(`HTTP error: ${response.status} ${response.statusText}`);
         response.text().then(text => console.error('Response body:', text));
     }
 
