@@ -11,12 +11,12 @@
     <script src="/JS/taskFunctions.js"></script>
     <script src="/JS/uiFunctions.js"></script>
     <style>
-        /* Стили для улучшения внешнего вида */
+        /* Base styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4; /* Цвет фона */
+            background-color: #f4f4f4;
         }
         .container {
             width: 80%;
@@ -26,13 +26,15 @@
             text-align: center;
             color: #333;
         }
+
+        /* Task styles */
         .task {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #ccc;
             padding: 10px;
-            transition: all 0.3s ease-in-out; /* Анимация удаления */
+            transition: all 0.3s ease-in-out;
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -50,6 +52,8 @@
             display: flex;
             align-items: center;
         }
+
+        /* Button styles */
         .delete-button,
         .edit-button {
             background: none;
@@ -60,17 +64,19 @@
         }
         .delete-button:hover,
         .edit-button:hover {
-            color: red; /* Изменение цвета при наведении */
+            color: red;
         }
+
+        /* Form Styles */
         .add-task-form {
             display: none;
             margin-bottom: 20px;
-            clear: both; /* Добавленный стиль для корректного отображения формы после кнопки */
-            overflow: hidden; /* Добавленный стиль для корректного отображения формы после кнопки */
+            clear: both;
+            overflow: hidden;
         }
+
         .add-task-form input,
-        .add-task-form textarea,
-        .add-button {
+        .add-task-form textarea {
             margin-bottom: 10px;
             padding: 8px;
             font-size: 16px;
@@ -79,9 +85,8 @@
             width: 100%;
             box-sizing: border-box;
         }
-        .add-task-form .add-button {
-            width: auto;
-        }
+
+        /* Add button Style */
         .add-button {
             background-color: #4caf50;
             color: #fff;
@@ -92,9 +97,11 @@
             cursor: pointer;
             margin-bottom: 20px;
             float: right;
-            display: block; /* Добавленный стиль для корректного выравнивания кнопки */
-            clear: both; /* Добавленный стиль для корректного выравнивания кнопки */
+            display: block;
+            clear: both;
+            width: auto;
         }
+
         .add-button:hover {
             background-color: #45a049;
         }

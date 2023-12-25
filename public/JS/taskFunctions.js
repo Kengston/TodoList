@@ -1,34 +1,59 @@
-    function saveTask() {
-        const taskName = document.getElementById('taskName').value;
-        const taskDescription = document.getElementById('taskDescription').value;
+async function saveTask() {
+    console.log("savetask function called");
+    const taskName = document.getElementById('taskName').value;
+    const taskDescription = document.getElementById('taskDescription').value;
 
-        // Здесь можно отправить данные на сервер или выполнить другую логику сохранения задачи
-        console.log('Название задачи:', taskName);
-        console.log('Описание задачи:', taskDescription);
+    const body = {
+        task_name: taskName,
+        description: taskDescription
+    };
 
-        // Очищаем форму после сохранения задачи
-        document.getElementById('taskName').value = '';
-        document.getElementById('taskDescription').value = '';
+    console.log(body); // Debug: log sent body
 
-        // Скрыть форму после сохранения задачи
-        toggleAddTaskForm();
+    const response = await fetch('/tasks', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (response.ok) {
+        console.log(`The task: ${taskName} has been created successfully`);
+    } else {
+        console.error(`An error occurred: ${response.statusText}`);
+        response.text().then(text => console.error('Response body:', text));
     }
 
-    function addTask() {
-        // Здесь можно добавить логику добавления новой задачи
-        console.log('Добавить новую задачу');
-    }
+    document.getElementById('taskName').value = '';
+    document.getElementById('taskDescription').value = '';
+    toggleAddTaskForm();
+}
 
-    function deleteTask(taskId) {
-        const taskElement = document.getElementById('task-' + taskId);
-        taskElement.style.transform = 'translateX(-200%)'; // Анимация удаления
+function addTask() {
+    // Call saveTask to add new task
+    saveTask();
+}
+
+async function deleteTask(taskId) {
+    const taskElement = document.getElementById('task-' + taskId);
+
+    const response = await fetch(`/tasks/${taskId}`, {
+        method: 'DELETE',
+    });
+
+    if (response.ok) {
+        taskElement.style.transform = 'translateX(-200%)'; // Animation deletion
         setTimeout(() => {
-            taskElement.remove(); // Удаление элемента после анимации
-            // Здесь можно добавить логику удаления задачи с taskId из базы данных
-        }, 300); // Время анимации в миллисекундах
+            taskElement.remove(); // Remove element after animation
+        }, 300);
+        console.log(`Task id: ${taskId} has been deleted successfully`);
+    } else {
+        console.error(`Failed to delete task: ${response.statusText}`);
     }
+}
 
-    function editTask(taskId) {
-        // Здесь можно добавить логику для редактирования задачи с taskId
-        console.log('Редактировать задачу с ID:', taskId);
-    }
+function editTask(taskId) {
+    // Existing implementation for editing a task
+    console.log('Редактировать задачу с ID:', taskId);
+}
