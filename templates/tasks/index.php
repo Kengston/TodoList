@@ -1,7 +1,7 @@
 <?php
 /**
- * @var $tasks - All tasks on page;
- * */
+ * @var $tasks - All tasks on the page
+ */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +18,14 @@
             padding: 0;
             background-color: #f4f4f4;
         }
+
+        /* Container */
         .container {
             width: 80%;
             margin: 20px auto;
         }
+
+        /* Heading styles */
         h1 {
             text-align: center;
             color: #333;
@@ -40,17 +44,27 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 10px;
         }
+
+        /* Task content */
         .task-content {
             flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Add this to align the content to the right */
         }
+
+        /* Description */
         .description {
             font-size: 14px;
             color: #666;
             margin-top: 5px;
         }
+
+        /* Task buttons */
         .task-buttons {
             display: flex;
             align-items: center;
+            justify-content: flex-end; /* Add this to align the buttons to the right */
         }
 
         /* Button styles */
@@ -62,12 +76,13 @@
             font-size: 16px;
             margin-left: 10px;
         }
+
         .delete-button:hover,
         .edit-button:hover {
             color: red;
         }
 
-        /* Form Styles */
+        /* Add task form */
         .add-task-form {
             display: none;
             margin-bottom: 20px;
@@ -86,7 +101,7 @@
             box-sizing: border-box;
         }
 
-        /* Add button Style */
+        /* Add button style */
         .add-button {
             background-color: #4caf50;
             color: #fff;
@@ -105,6 +120,65 @@
         .add-button:hover {
             background-color: #45a049;
         }
+
+        /* Edit mode styles */
+        .edit-mode .task-content input,
+        .edit-mode .task-content textarea {
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #4caf50;
+            width: calc(100% - 20px);
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .edit-mode .task-content .edit-form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-right: 20px; /* Отступ справа */
+            box-sizing: border-box;
+            width: 100%; /* Ширина равна 100% */
+        }
+
+        .edit-mode .task-content .edit-form .task-buttons {
+            display: flex;
+            justify-content: flex-end; /* Выравнивание в конец контейнера */
+            margin-top: 10px;
+            width: 100%; /* Ширина равна 100% */
+            box-sizing: border-box; /* Размеры включают padding */
+        }
+
+        .edit-mode .task-content .edit-form .task-buttons button {
+            margin-left: 10px;
+            /* flex: 1; удаляем это свойство */
+        }
+
+        .edit-mode .task-buttons .edit-button,
+        .edit-mode .task-buttons .delete-button {
+            display: none;
+        }
+
+        .edit-mode .task-buttons .save-edit-button,
+        .edit-mode .task-buttons .cancel-edit-button {
+            background-color: transparent;
+            color: #4caf50;
+            border: none;
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .edit-mode .task-buttons .save-edit-button:hover,
+        .edit-mode .task-buttons .cancel-edit-button:hover {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
@@ -124,6 +198,14 @@
                     <?php if (!empty($task->description)): ?>
                         <p class="description"><?= $task->description ?></p>
                     <?php endif; ?>
+                    <div class="edit-form" style="display: none; padding-right: 50px;">
+                        <input class="edit-task-name" value="<?= $task->task_name ?>">
+                        <textarea class="edit-description"><?= $task->description ?></textarea>
+                        <div class="task-buttons">
+                            <button class="save-edit-button" onclick="saveEdit(<?= $task->id ?>)">Save</button>
+                            <button class="cancel-edit-button" onclick="cancelEdit(<?= $task->id ?>)">Cancel</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="task-buttons">
                     <button class="delete-button" onclick="deleteTask(<?= $task->id ?>)">
