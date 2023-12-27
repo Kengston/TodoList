@@ -116,7 +116,8 @@
 
         if (isInEditMode) {
             const descriptionElement = taskElement.querySelector('.description');
-            const taskName = taskContent.textContent.trim();
+            const nameElement = taskElement.querySelector('.name');
+            const name = nameElement ? nameElement.textContent.trim() : '';
             const description = descriptionElement ? descriptionElement.textContent.trim() : '';
 
             // Show edit mode
@@ -125,7 +126,7 @@
             taskContent.style.display = 'none';
 
             // Set input field values
-            taskElement.querySelector('.edit-task-name').value = taskName;
+            taskElement.querySelector('.edit-task-name').value = name;
             taskElement.querySelector('.edit-description').value = description;
 
             // Hide other buttons
