@@ -207,11 +207,7 @@
                 </div>
                 <div class="edit-form" style="display: none; padding-right: 50px;">
                     <input class="edit-task-name" value="<?= $task->task_name ?>">
-                    <textarea class="edit-description"><?= $task->description ?></textarea>
-                    <div class="task-buttons">
-                        <button class="save-edit-button" onclick="saveEdit(<?= $task->id ?>)">Save</button>
-                        <button class="cancel-edit-button" onclick="cancelEdit(<?= $task->id ?>)">Cancel</button>
-                    </div>
+                    <input class="edit-description" value="<?= $task->description ?>">
                 </div>
                 <div class="task-buttons">
                     <button class="delete-button" onclick="deleteTask(<?= $task->id ?>)">

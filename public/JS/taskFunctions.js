@@ -29,10 +29,7 @@ async function saveTask() {
     toggleAddTaskForm();
 }
 
-function addTask() {
-    // Call saveTask to add new task
-    saveTask();
-}
+
 
 async function deleteTask(taskId) {
     const taskElement = document.getElementById('task-' + taskId);
