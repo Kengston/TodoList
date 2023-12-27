@@ -43,6 +43,7 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 10px;
+            position: relative;
         }
 
         /* Task content */
@@ -50,7 +51,7 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Add this to align the content to the right */
+            justify-content: flex-end;
         }
 
         /* Description */
@@ -63,8 +64,13 @@
         /* Task buttons */
         .task-buttons {
             display: flex;
+            justify-content: flex-end;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            padding: 0 10px;
             align-items: center;
-            justify-content: flex-end; /* Add this to align the buttons to the right */
         }
 
         /* Button styles */
@@ -74,7 +80,7 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
-            margin-left: 10px;
+            margin-right: 10px;
         }
 
         .delete-button:hover,
@@ -93,12 +99,19 @@
         .add-task-form input,
         .add-task-form textarea {
             margin-bottom: 10px;
-            padding: 8px;
+            padding: 10px;
             font-size: 16px;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 1px solid #ccc;
             width: 100%;
             box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .add-task-form input:focus,
+        .add-task-form textarea:focus {
+            border-color: #4caf50;
+            outline: none;
         }
 
         /* Add button style */
@@ -122,44 +135,28 @@
         }
 
         /* Edit mode styles */
-        .edit-mode .task-content input,
-        .edit-mode .task-content textarea {
+        .edit-mode .edit-form {
+            display: block;
+        }
+
+        .edit-mode .edit-form input,
+        .edit-mode .edit-form textarea {
             margin-bottom: 10px;
-            padding: 8px;
+            padding: 10px;
             font-size: 16px;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 1px solid #4caf50;
-            width: calc(100% - 20px);
+            width: calc(100% - 22px);
             box-sizing: border-box;
             background-color: #f9f9f9;
             color: #333;
+            transition: border-color 0.3s ease;
         }
 
-        .edit-mode .task-content .edit-form {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding-right: 20px; /* Отступ справа */
-            box-sizing: border-box;
-            width: 100%; /* Ширина равна 100% */
-        }
-
-        .edit-mode .task-content .edit-form .task-buttons {
-            display: flex;
-            justify-content: flex-end; /* Выравнивание в конец контейнера */
-            margin-top: 10px;
-            width: 100%; /* Ширина равна 100% */
-            box-sizing: border-box; /* Размеры включают padding */
-        }
-
-        .edit-mode .task-content .edit-form .task-buttons button {
-            margin-left: 10px;
-            /* flex: 1; удаляем это свойство */
-        }
-
-        .edit-mode .task-buttons .edit-button,
-        .edit-mode .task-buttons .delete-button {
-            display: none;
+        .edit-mode .edit-form input:focus,
+        .edit-mode .edit-form textarea:focus {
+            border-color: #4caf50;
+            outline: none;
         }
 
         .edit-mode .task-buttons .save-edit-button,
@@ -167,18 +164,11 @@
             background-color: transparent;
             color: #4caf50;
             border: none;
-            padding: 8px 16px;
+            padding: 8px 13px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
         }
-
-        .edit-mode .task-buttons .save-edit-button:hover,
-        .edit-mode .task-buttons .cancel-edit-button:hover {
-            background-color: #4caf50;
-            color: #fff;
-        }
-
     </style>
 </head>
 <body>
@@ -190,6 +180,7 @@
         <textarea id="taskDescription" placeholder="Task Description"></textarea>
         <button class="add-button" onclick="saveTask()">Save Task</button>
     </div>
+
     <ul id="task-list">
         <?php foreach ($tasks as $task): ?>
             <li class="task" id="task-<?= $task->id ?>">
@@ -198,16 +189,20 @@
                     <?php if (!empty($task->description)): ?>
                         <p class="description"><?= $task->description ?></p>
                     <?php endif; ?>
-                    <div class="edit-form" style="display: none; padding-right: 50px;">
-                        <input class="edit-task-name" value="<?= $task->task_name ?>">
-                        <textarea class="edit-description"><?= $task->description ?></textarea>
-                        <div class="task-buttons">
-                            <button class="save-edit-button" onclick="saveEdit(<?= $task->id ?>)">Save</button>
-                            <button class="cancel-edit-button" onclick="cancelEdit(<?= $task->id ?>)">Cancel</button>
-                        </div>
-                    </div>
+                </div>
+                <div class="edit-form" style="display: none;">
+                    <input class="edit-task-name" placeholder="<?= $task->task_name ?>">
+                    <input class="edit-description" placeholder="<?= $task->description ?>">
                 </div>
                 <div class="task-buttons">
+                    <div class="edit-buttons" style="display: none;">
+                        <button class="cancel-edit-button" onclick="cancelEditedTask(<?= $task->id ?>)">
+                            &#10060;
+                        </button>
+                        <button class="save-edit-button" onclick="saveEditedTask(<?= $task->id ?>)">
+                            &#10004;
+                        </button>
+                    </div>
                     <button class="delete-button" onclick="deleteTask(<?= $task->id ?>)">
                         &#10060;
                     </button>
