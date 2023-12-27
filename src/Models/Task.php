@@ -10,8 +10,6 @@ class Task extends Model {
     protected $table = 'todos'; // Название таблицы в базе данных
     protected $fillable = ['task_name', 'description', 'status']; // Поля, доступные для заполнения
 
-    public $timestamps = false;
-
     public static function boot() {
         parent::boot();
         $capsule = new Capsule();

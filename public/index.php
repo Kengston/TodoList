@@ -18,7 +18,7 @@ $app->addBodyParsingMiddleware();
 
 // List all tasks
 $app->get('/tasks', function ($request, $response) {
-    $tasks = Task::all();
+    $tasks = Task::orderBy('created_at', 'desc')->get();
     return $this->get('renderer')->render($response, 'tasks/index.php', ['tasks' => $tasks]);
 });
 
