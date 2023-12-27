@@ -43,6 +43,7 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 10px;
+            position: relative;
         }
 
         /* Task content */
@@ -63,8 +64,13 @@
         /* Task buttons */
         .task-buttons {
             display: flex;
-            align-items: center;
-            justify-content: flex-end; /* Add this to align the buttons to the right */
+            justify-content: flex-end;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%; /* Занимаем всю высоту .task */
+            padding: 0 10px; /* Добавьте отступы, чтобы кнопки не были прижаты к краям */
+            align-items: center; /* Центрирование по вертикали */
         }
 
         /* Button styles */
@@ -139,9 +145,9 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            padding-right: 20px; /* Отступ справа */
+            padding-right: 20px;
             box-sizing: border-box;
-            width: 100%; /* Ширина равна 100% */
+            width: calc(100% - 150px);
         }
 
         .edit-mode .task-content .edit-form .task-buttons {
@@ -198,13 +204,13 @@
                     <?php if (!empty($task->description)): ?>
                         <p class="description"><?= $task->description ?></p>
                     <?php endif; ?>
-                    <div class="edit-form" style="display: none; padding-right: 50px;">
-                        <input class="edit-task-name" value="<?= $task->task_name ?>">
-                        <textarea class="edit-description"><?= $task->description ?></textarea>
-                        <div class="task-buttons">
-                            <button class="save-edit-button" onclick="saveEdit(<?= $task->id ?>)">Save</button>
-                            <button class="cancel-edit-button" onclick="cancelEdit(<?= $task->id ?>)">Cancel</button>
-                        </div>
+                </div>
+                <div class="edit-form" style="display: none; padding-right: 50px;">
+                    <input class="edit-task-name" value="<?= $task->task_name ?>">
+                    <textarea class="edit-description"><?= $task->description ?></textarea>
+                    <div class="task-buttons">
+                        <button class="save-edit-button" onclick="saveEdit(<?= $task->id ?>)">Save</button>
+                        <button class="cancel-edit-button" onclick="cancelEdit(<?= $task->id ?>)">Cancel</button>
                     </div>
                 </div>
                 <div class="task-buttons">
