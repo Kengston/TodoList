@@ -185,7 +185,9 @@
         <?php foreach ($tasks as $task): ?>
             <li class="task" id="task-<?= $task->id ?>">
                 <div class="task-content">
-                    <?= $task->task_name ?>
+                    <?php if (!empty($task->task_name)): ?>
+                        <p class="name"><?= $task->task_name ?></p>
+                    <?php endif; ?>
                     <?php if (!empty($task->description)): ?>
                         <p class="description"><?= $task->description ?></p>
                     <?php endif; ?>
