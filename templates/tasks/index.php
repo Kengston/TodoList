@@ -80,7 +80,7 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
-            margin-left: 10px;
+            margin-right: 10px;
         }
 
         .delete-button:hover,
@@ -160,7 +160,6 @@
 
         .edit-mode .task-content .edit-form .task-buttons button {
             margin-left: 10px;
-            /* flex: 1; удаляем это свойство */
         }
 
         .edit-mode .task-buttons .edit-button,
@@ -179,6 +178,8 @@
             cursor: pointer;
         }
 
+
+
         .edit-mode .task-buttons .save-edit-button:hover,
         .edit-mode .task-buttons .cancel-edit-button:hover {
             background-color: #4caf50;
@@ -188,6 +189,7 @@
     </style>
 </head>
 <body>
+
 <div class="container">
     <h1>TODO List</h1>
     <div class="add-task-form" id="addTaskForm" style="display: none;">
@@ -195,9 +197,10 @@
         <textarea id="taskDescription" placeholder="Task Description"></textarea>
         <button class="add-button" onclick="saveTask()">Save Task</button>
     </div>
+
     <ul id="task-list">
         <?php foreach ($tasks as $task): ?>
-            <li class="task" id="task-<?= $task->id ?>">
+            <div class="task" id="task-<?= $task->id ?>">
                 <div class="task-content">
                     <?= $task->task_name ?>
                     <?php if (!empty($task->description)): ?>
@@ -205,10 +208,18 @@
                     <?php endif; ?>
                 </div>
                 <div class="edit-form" style="display: none; padding-right: 50px;">
-                    <input class="edit-task-name" value="<?= $task->task_name ?>">
-                    <textarea class="edit-description"><?= $task->description ?></textarea>
+                    <input class="edit-task-name" placeholder="<?= $task->task_name ?>">
+                    <input class="edit-description" placeholder="<?= $task->description ?>">
                 </div>
                 <div class="task-buttons">
+                    <div class="edit-buttons" style="display: none;">
+                        <button class="cancel-edit-button" onclick="cancelEditedTask(<?= $task->id ?>)">
+                            &#10060;
+                        </button>
+                        <button class="save-edit-button" onclick="saveEditedTask(<?= $task->id ?>)">
+                            &#10004;
+                        </button>
+                    </div>
                     <button class="delete-button" onclick="deleteTask(<?= $task->id ?>)">
                         &#10060;
                     </button>
@@ -216,13 +227,11 @@
                         &#9998;
                     </button>
                 </div>
-            </li>
+            </div>
         <?php endforeach; ?>
     </ul>
     <button class="add-button" onclick="toggleAddTaskForm()">Add Task</button>
 </div>
 
-</body>
-</html>
 </body>
 </html>
