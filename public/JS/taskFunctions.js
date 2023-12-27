@@ -69,16 +69,26 @@
 
         if (response.ok) {
             // Update the task content with edited values
-            taskElement.innerHTML = `
-                <div class="task-content">
-                    ${editedName}
-                    <p class="description">${editedDescription}</p>
-                </div>
-                <div class="task-buttons">
-                    <button class="delete-button" onclick="deleteTask(${taskId})">&#10060;</button>
-                    <button class="edit-button" onclick="editTask(${taskId})">&#9998;</button>
-                </div>
-            `;
+            const taskContent = taskElement.querySelector('.task-content');
+            const descriptionElement = taskContent.querySelector('.description');
+
+            // Update task name
+            taskContent.textContent = editedName;
+
+            // If description exists, update it; otherwise, create a new one
+            if (descriptionElement) {
+                descriptionElement.textContent = editedDescription;
+            } else if (editedDescription !== '') {
+                const newDescription = document.createElement('p');
+                newDescription.classList.add('description');
+                newDescription.textContent = editedDescription;
+                taskContent.appendChild(newDescription);
+            }
+
+            // Show task buttons again
+            const taskButtons = taskElement.querySelector('.task-buttons');
+            taskButtons.style.display = 'flex';
+
             console.log(`Task id: ${taskId} has been edited successfully`);
             window.location.reload();
         } else {
@@ -86,6 +96,7 @@
             // Handle error case if needed
         }
     }
+
 
     async function editTask(taskId) {
         const taskElement = document.getElementById('task-' + taskId);
@@ -100,7 +111,10 @@
         // Toggle edit mode class for the task element
         taskElement.classList.toggle('edit-mode');
 
-        if (taskElement.classList.contains('edit-mode')) {
+        // Determine if the task element is in edit mode after toggling the class
+        const isInEditMode = taskElement.classList.contains('edit-mode');
+
+        if (isInEditMode) {
             const descriptionElement = taskElement.querySelector('.description');
             const taskName = taskContent.textContent.trim();
             const description = descriptionElement ? descriptionElement.textContent.trim() : '';
