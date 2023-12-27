@@ -188,7 +188,6 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     <h1>TODO List</h1>
     <div class="add-task-form" id="addTaskForm" style="display: none;">
@@ -207,7 +206,7 @@
                 </div>
                 <div class="edit-form" style="display: none; padding-right: 50px;">
                     <input class="edit-task-name" value="<?= $task->task_name ?>">
-                    <input class="edit-description" value="<?= $task->description ?>">
+                    <textarea class="edit-description"><?= $task->description ?></textarea>
                 </div>
                 <div class="task-buttons">
                     <button class="delete-button" onclick="deleteTask(<?= $task->id ?>)">
@@ -223,5 +222,7 @@
     <button class="add-button" onclick="toggleAddTaskForm()">Add Task</button>
 </div>
 
+</body>
+</html>
 </body>
 </html>
